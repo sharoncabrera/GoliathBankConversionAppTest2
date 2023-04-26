@@ -13,7 +13,6 @@ import com.example.goliathbankconversionapptest2.transaction_feature.presentatio
 import com.example.goliathbankconversionapptest2.transaction_feature.presentation.util.currencyConverter
 import com.example.goliathbankconversionapptest2.transaction_feature.presentation.util.round
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,10 +24,10 @@ class TransactionDetailViewModel @Inject constructor(
 ) : ViewModel() {
 
     val state: MutableState<TransactionDetailState> = mutableStateOf(TransactionDetailState())
-    private var listTransactions = mutableStateOf<List<Transaction>>(emptyList())
+    var listTransactions = mutableStateOf<List<Transaction>>(emptyList())
     private val name: String? = savedStateHandle.get<String>("transactionName")
 
-    private val ratesList = mutableStateOf<List<Rate>>(emptyList())
+    val ratesList = mutableStateOf<List<Rate>>(emptyList())
 
     init {
         loadData()
@@ -47,7 +46,7 @@ class TransactionDetailViewModel @Inject constructor(
         }
     }
 
-    private fun computeTotalAmount() {
+    fun computeTotalAmount() {
         var totalSum = 0.0
         listTransactions.value.forEach {
             val conversionRate = currencyConverter(
