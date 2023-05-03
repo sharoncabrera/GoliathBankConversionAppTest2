@@ -54,7 +54,7 @@ class TransactionListViewModelTest {
             getRatesFromApiUseCase()
         }
         advanceUntilIdle()
-        assertEquals(transactions, viewModel.state.value.transactions)
+        assertEquals(transactions, viewModel.state.transactions)
     }
 
 

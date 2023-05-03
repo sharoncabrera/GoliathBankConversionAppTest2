@@ -65,6 +65,6 @@ class DetailedTransactionViewModelTest {
         advanceUntilIdle()
 
         // Then
-        assert(6.0 == viewModel.state.value.totalAmount)
+        assert(6.0 == viewModel.state.totalAmount)
     }
 }

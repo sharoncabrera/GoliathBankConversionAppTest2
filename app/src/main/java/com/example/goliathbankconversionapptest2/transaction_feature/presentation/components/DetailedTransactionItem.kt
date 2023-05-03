@@ -21,8 +21,7 @@ fun DetailedTransactionItem(transaction: TransactionUIModel) {
             modifier = Modifier
                 .padding(5.dp)
         ) {
-            Column(
-            ) {
+            Column {
                 Text(
                     text = "Amount",
                     color = Color.Blue
