@@ -13,14 +13,4 @@ interface ApiClient {
                 json(Json { ignoreUnknownKeys = true })
             }
         }
-
-    /*companion object {
-        private val client = HttpClient(CIO) {
-            install(ContentNegotiation) {
-                json(Json { ignoreUnknownKeys = true })
-            }
-        }
-    }
-
-     */
 }

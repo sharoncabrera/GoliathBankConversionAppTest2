@@ -1,7 +1,8 @@
 package com.example.goliathbankconversionapptest2.transaction_feature.presentation.transaction_detail
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +24,8 @@ class TransactionDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    val state: MutableState<TransactionDetailState> = mutableStateOf(TransactionDetailState())
+    var state by mutableStateOf(TransactionDetailState())
+        private set
     var listTransactions = mutableStateOf<List<Transaction>>(emptyList())
     private val name: String? = savedStateHandle.get<String>("transactionName")
 
@@ -37,11 +39,17 @@ class TransactionDetailViewModel @Inject constructor(
         viewModelScope.launch {
             name?.let {
                 listTransactions.value = getTransactionsWithTheSameName(it)
-                state.value.name = it
+                state = state.copy(
+                    name = it
+                )
             }
             ratesList.value = getRates()
 
-            state.value.listTransactions = listTransactions.value.map { it.toUIModel() }
+            state = state.copy(
+                listTransactions = listTransactions.value.map {
+                    it.toUIModel()
+                }
+            )
             computeTotalAmount()
         }
     }
@@ -55,6 +63,9 @@ class TransactionDetailViewModel @Inject constructor(
             ) ?: 0.0
             totalSum += (it.amount * conversionRate)
         }
-        state.value.totalAmount = totalSum.round()
+
+        state = state.copy(
+            totalAmount = totalSum.round()
+        )
     }
 }

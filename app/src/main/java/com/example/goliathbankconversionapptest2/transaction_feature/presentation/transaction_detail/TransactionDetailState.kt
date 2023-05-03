@@ -3,7 +3,7 @@ package com.example.goliathbankconversionapptest2.transaction_feature.presentati
 import com.example.goliathbankconversionapptest2.transaction_feature.presentation.model.TransactionUIModel
 
 data class TransactionDetailState(
-    var name: String = "",
-    var listTransactions: List<TransactionUIModel> = listOf(),
-    var totalAmount: Double = 0.0,
+    val name: String = "",
+    val listTransactions: List<TransactionUIModel> = listOf(),
+    val totalAmount: Double = 0.0,
     )

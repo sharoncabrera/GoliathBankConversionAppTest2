@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -55,8 +56,8 @@ fun TransactionListScreen(
                     .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                if (state.transactions.isEmpty()) {
-
+                if (state.isLoading || state.transactions.isEmpty()) {
+                    CircularProgressIndicator()
                     Text(text = "There are not transactions", color = Color.DarkGray)
 
                 } else {

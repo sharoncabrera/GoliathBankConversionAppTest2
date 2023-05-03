@@ -1,7 +1,8 @@
 package com.example.goliathbankconversionapptest2.transaction_feature.presentation.transaction_list
 
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.goliathbankconversionapptest2.transaction_feature.domain.use_case.GetRatesFromApiUseCase
@@ -16,7 +17,8 @@ class TransactionListViewModel @Inject constructor(
     private val getRatesFromApiUseCase: GetRatesFromApiUseCase,
 
     ) : ViewModel() {
-    val state: MutableState<TransactionListState> = mutableStateOf(TransactionListState())
+    var state by mutableStateOf(TransactionListState())
+        private set
 
     init {
         initEvents(TransactionListEvents.GetTransactions)
@@ -24,7 +26,13 @@ class TransactionListViewModel @Inject constructor(
 
     fun initEvents(event: TransactionListEvents) {
         viewModelScope.launch {
-            state.value = state.value.copy(transactions = getTransactionsUseCase())
+            state = state.copy(
+                isLoading = true
+            )
+            state = state.copy(
+                transactions = getTransactionsUseCase(),
+                isLoading = false
+            )
             getRatesFromApiUseCase()
         }
     }

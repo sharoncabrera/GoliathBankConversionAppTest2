@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                     composable(Route.TRANSACTION_LIST) {
                         val viewModel: TransactionListViewModel = hiltViewModel()
                         TransactionListScreen(
-                            state = viewModel.state.value,
+                            state = viewModel.state,
                             events = viewModel::initEvents,
                             navigateToDetailScreen = { transactionName ->
                                 navController.navigate("${Route.TRANSACTION_DETAIL}/$transactionName")
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     ) {
                         val viewModel: TransactionDetailViewModel = hiltViewModel()
                         TransactionDetailScreen(
-                            state = viewModel.state.value,
+                            state = viewModel.state,
                         )
                     }
                 }

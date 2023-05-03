@@ -6,7 +6,6 @@ import com.example.goliathbankconversionapptest2.transaction_feature.domain.mode
 interface TransactionRepository {
     suspend fun getTransactions(): List<String>
     suspend fun getConversionRates()
-
     suspend fun insertTransaction(transaction: Transaction)
     suspend fun getTransactionsFromDb(name: String): List<Transaction>
     suspend fun getTransactionById(id: Int): Transaction
